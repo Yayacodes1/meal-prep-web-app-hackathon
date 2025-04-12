@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from schedule import mealScheduler
+from scheduler import mealScheduler
 
 app = FastAPI()
 
@@ -18,5 +18,5 @@ def read_root():
 @app.post("/meals")
 async def save_meals(request: Request):
     meal_list = await request.json()
-    schedule = get_scheduled_meals(meal_list)
+    schedule = mealScheduler(meal_list)
     return schedule
