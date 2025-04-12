@@ -2,7 +2,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore, auth, storage, messaging
 
 # Path to your service account key JSON file
-cred = credentials.Certificate("backend/serviceAccountKey.json")
+cred = credentials.Certificate("serviceAccountKey.json")
 
 # Initialize Firebase App (only once)
 if not firebase_admin._apps:
