@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException, Depends, Request
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
-from scheduler import mealScheduler
+from scheduler import mealScheduler, weeklyGroceryBuyList
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -23,5 +23,6 @@ def read_root():
 async def save_meals(request: Request):
     meal_list = await request.json()
     schedule = mealScheduler(meal_list)
+    buyList = weeklyGroceryBuyList(schedule, meal_list)
     # ingredient_list = grocery(schedule, meal_list)
-    return schedule
+    return [schedule, buyList]

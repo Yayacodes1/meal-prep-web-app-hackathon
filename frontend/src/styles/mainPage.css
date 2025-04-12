@@ -93,3 +93,14 @@ body {
 .grayed-out {
   opacity: 0.3;
 }
+.weekly-buy-lists {
+  margin-top: 2rem;
+  width: 100%;
+}
+.weekly-buy-lists h4 {
+  margin-bottom: 0.5rem;
+}
+.weekly-buy-lists ul {
+  margin: 0;
+  padding-left: 1rem;
+}
