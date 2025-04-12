@@ -74,12 +74,12 @@ function MainPage() {
       const currentMonthDates = getCurrentMonthDates();
 
       currentMonthDates.forEach((date) => {
-        const day = date.toLocaleDateString("en-US", { weekday: "long" });
-        const weekNumber = Math.ceil(date.getDate() / 7);
-        const scheduleKey = `${day}${weekNumber}`;
-        const dateKey = date.toISOString().split("T")[0];
+        const dayName = date.toLocaleDateString("en-US", { weekday: "long" });
+        const weekIndex = Math.floor((date.getDate() - 1) / 7) + 1;
+        const scheduleKey = `${dayName}${weekIndex}`;
         if (schedule[scheduleKey]) {
-          updatedMeals[dateKey] = [{ mealName: schedule[scheduleKey] }];
+          updatedMeals[date.toISOString().split("T")[0]] =
+            schedule[scheduleKey];
         }
       });
 
@@ -125,11 +125,16 @@ function MainPage() {
               >
                 <div className="calendar-date">{date.getDate()}</div>
                 <ul className="calendar-meals">
-                  {(calendarMeals[dateKey] || []).map((meal, i) => (
-                    <li key={i}>
-                      <strong>{meal.mealName}</strong>
-                    </li>
-                  ))}
+                  {calendarMeals[dateKey] && (
+                    <>
+                      <li>
+                        <strong>Lunch:</strong> {calendarMeals[dateKey].Lunch}
+                      </li>
+                      <li>
+                        <strong>Dinner:</strong> {calendarMeals[dateKey].Dinner}
+                      </li>
+                    </>
+                  )}
                 </ul>
               </div>
             );
