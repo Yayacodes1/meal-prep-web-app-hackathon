@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from fastapi import FastAPI, HTTPException, Depends
 from firebase_admin import auth
 from pydantic import BaseModel
@@ -135,4 +136,27 @@ async def delete_meal(meal_id: str, current_user = Depends(get_current_user)):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
+=======
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from scheduler import mealScheduler
 
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # Just for now :)
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/")
+def read_root():
+    return {"message": "Hello from FastAPI!"}
+>>>>>>> dd40ec8e9ee3d431e58c627abff065f713d560a1
+
+@app.post("/meals")
+async def save_meals(request: Request):
+    meal_list = await request.json()
+    schedule = mealScheduler(meal_list)
+    return schedule
