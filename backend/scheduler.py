@@ -26,5 +26,22 @@ def mealScheduler(meal_dict):
         meal_schedule[day] = day_schedule
     return meal_schedule
 
-
-
+"""This function will take the keys with the same end index, meaning Monday1 through Sunday1 from the returneed mealschedule
+dictionary and then find the list of ingredients for each meal and return a dictionary with how many of each ingredient is needed
+for the week."""
+def weeklyGroceryBuyList(meal_schedule, meal_dict):
+    # We only consider weeks 1 through 4
+    weekly_grocery = {'Week1': {}, 'Week2': {}, 'Week3': {}, 'Week4': {}}
+    
+    for day, schedule in meal_schedule.items():
+        # Extract week number from the day string (e.g., "Monday1" -> "1")
+        week_num = day[-1]
+        week_key = f"Week{week_num}"
+        if week_key in weekly_grocery:
+            for meal_type in schedule:  # 'Lunch' and 'Dinner'
+                meal_name = schedule[meal_type]
+                # Retrieve ingredients for the meal from meal_dict
+                ingredients = meal_dict.get(meal_name, [])
+                for ingredient in ingredients:
+                    weekly_grocery[week_key][ingredient] = weekly_grocery[week_key].get(ingredient, 0) + 1
+    return weekly_grocery

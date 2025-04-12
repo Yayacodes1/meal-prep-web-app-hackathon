@@ -1,9 +1,16 @@
+body {
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
 .main-container {
   flex-grow: 1;
   align-self: stretch;
   padding: 2rem;
   font-family: Arial, sans-serif;
-  color: white;
+  color: green;
+  background-color: #FFFFFF;
 }
 
 .input-section {
@@ -17,19 +24,21 @@
   padding: 0.5rem;
   border-radius: 5px;
   border: 1px solid #555;
-  background: #222;
-  color: white;
+  background: #FFFFFF;
+  color: #333;
 }
 
 .input-section button {
   padding: 0.5rem 1rem;
-  background-color: #007bff;
+  background-color: green;
   border: none;
   color: white;
   border-radius: 5px;
   cursor: pointer;
 }
-
+.input-section button:hover {
+  background-color: #45a049;
+}
 .content-section {
   display: flex;
   flex-direction: row;
@@ -44,17 +53,25 @@
 }
 
 .calendar-cell {
-  border: 1px solid #444;
-  width: 160px;
+  border: 1px solid #ddd;
+  width: 120px;
   padding: 0.5rem;
   border-radius: 8px;
-  background-color: #111;
-  height: 100px;
+  background-color: rgb(226, 224, 224) ;
+  min-height: 80px;
+}
+
+.calendar-cell:hover {
+  background-color: #222;
+  border-color: #4CAF50;
+  transform: translateY(-2px);
 }
 
 .calendar-date {
   font-weight: bold;
   margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: #4CAF50;
 }
 
 .calendar-meals {
@@ -69,5 +86,9 @@
   border: 1px solid #444;
   padding: 1rem;
   border-radius: 8px;
-  background-color: #111;
+  background-color: rgb(226, 224, 224);
+}
+
+.grayed-out {
+  opacity: 0.3;
 }
