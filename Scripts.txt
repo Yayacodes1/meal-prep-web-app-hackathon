@@ -1,0 +1,8 @@
+To run the frontend, use the following script
+
+npm run dev
+
+To run the backend, use the following script
+
+uvicorn main:app --reload
+
