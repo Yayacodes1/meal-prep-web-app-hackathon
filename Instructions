@@ -31,7 +31,7 @@ cd ../backend
 python -m venv venv
 source venv/bin/activate # On Windows: venv\\Scripts\\activate
 
-pip install fastapi uvicorn
+pip install -r requirements.txt
 
 # Run the server
 
