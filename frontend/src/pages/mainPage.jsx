@@ -17,14 +17,35 @@ function getCurrentMonthDates() {
 function MainPage() {
   const [mealName, setMealName] = useState("");
   const [ingredients, setIngredients] = useState("");
-  const [mealList, setMealList] = useState([]);
+  const [mealList, setMealList] = useState({});
   const [calendarMeals, setCalendarMeals] = useState({});
 
   const handleAddMeal = () => {
     if (!mealName || !ingredients) return;
-    setMealList((prev) => [...prev, { mealName, ingredients }]);
+    const ingredientArray = ingredients.split(",").map((item) => item.trim());
+    setMealList((prev) => ({
+      ...prev,
+      [mealName]: ingredientArray,
+    }));
     setMealName("");
     setIngredients("");
+    console.log(mealList);
+  };
+
+  const handleSubmitMeals = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/meals", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(mealList),
+      });
+      const data = await response.json();
+      console.log("Submitted successfully:", data);
+    } catch (error) {
+      console.error("Error submitting meals:", error);
+    }
   };
 
   const currentMonthDates = getCurrentMonthDates();
@@ -71,12 +92,13 @@ function MainPage() {
         <div className="meal-list">
           <h3>Your Meals</h3>
           <ul>
-            {mealList.map((meal, index) => (
+            {Object.entries(mealList).map(([name, ingredients], index) => (
               <li key={index}>
-                <strong>{meal.mealName}</strong> – {meal.ingredients}
+                <strong>{name}</strong> – {ingredients.join(", ")}
               </li>
             ))}
           </ul>
+          <button onClick={handleSubmitMeals}>Calculate my meal plan!</button>
         </div>
       </div>
     </div>
