@@ -93,7 +93,7 @@ function MainPage() {
 
   return (
     <div className="main-container">
-      <h1>Meal Calendar</h1>
+      <h1 style={{ color: "#000000" }}>Meal Calendar</h1>
 
       <div className="input-section">
         <input
@@ -142,7 +142,7 @@ function MainPage() {
         </div>
 
         <div className="meal-list">
-          <h3>Your Meals</h3>
+          <h3 style={{ color: "#ffff" }}>Your Meals</h3>
           <ul>
             {Object.entries(mealList).map(([name, ingredients], index) => (
               <li key={index}>

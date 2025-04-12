@@ -1,5 +1,5 @@
 body {
-  background-color: #ffffff;
+  background-color: #a7a7a7;
   margin: 0;
   padding: 0;
 }
@@ -10,7 +10,7 @@ body {
   padding: 2rem;
   font-family: Arial, sans-serif;
   color: green;
-  background-color: #FFFFFF;
+  background-color: #a7a7a7;
 }
 
 .input-section {
@@ -24,7 +24,7 @@ body {
   padding: 0.5rem;
   border-radius: 5px;
   border: 1px solid #555;
-  background: #FFFFFF;
+  background: #ffffff;
   color: #333;
 }
 
@@ -54,16 +54,17 @@ body {
 
 .calendar-cell {
   border: 1px solid #ddd;
-  width: 120px;
+  width: 180px;
+  height: 100px;
   padding: 0.5rem;
   border-radius: 8px;
-  background-color: rgb(226, 224, 224) ;
+  background-color: rgb(29, 29, 29);
   min-height: 80px;
 }
 
 .calendar-cell:hover {
   background-color: #222;
-  border-color: #4CAF50;
+  border-color: #4caf50;
   transform: translateY(-2px);
 }
 
@@ -71,7 +72,7 @@ body {
   font-weight: bold;
   margin-bottom: 0.5rem;
   font-size: 1.1rem;
-  color: #4CAF50;
+  color: #4caf50;
 }
 
 .calendar-meals {
@@ -86,7 +87,7 @@ body {
   border: 1px solid #444;
   padding: 1rem;
   border-radius: 8px;
-  background-color: rgb(226, 224, 224);
+  background-color: rgb(29, 29, 29);
 }
 
 .grayed-out {
