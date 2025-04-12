@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import "../styles/MainPage.css";
 
 function getCurrentMonthDates() {
@@ -19,6 +21,17 @@ function MainPage() {
   const [ingredients, setIngredients] = useState("");
   const [mealList, setMealList] = useState({});
   const [calendarMeals, setCalendarMeals] = useState({});
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/');
+    } catch (error) {
+      console.error("Failed to log out", error);
+    }
+  };
 
   const handleAddMeal = () => {
     if (!mealName || !ingredients) return;
@@ -52,7 +65,10 @@ function MainPage() {
 
   return (
     <div className="main-container">
-      <h1>Meal Calendar</h1>
+      <div className="header">
+        <h1>Meal Calendar</h1>
+        <button onClick={handleLogout} className="logout-button">Logout</button>
+      </div>
 
       <div className="input-section">
         <input
