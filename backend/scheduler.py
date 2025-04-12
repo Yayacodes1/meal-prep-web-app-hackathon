@@ -8,7 +8,7 @@ import random
 def mealScheduler(meal_dict):
     meal_schedule = {}
     LunchorDinner = {'Lunch', 'Dinner'}
-    days = [f"{day}{week}" for week in range(1, 6) 
+    days = [f"{day}{week}" for week in range(1, 5) 
                            for day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']]
     meals = list(meal_dict.items())
     for idx, day in enumerate(days):
