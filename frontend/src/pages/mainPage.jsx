@@ -5,12 +5,33 @@ function getCurrentMonthDates() {
   const today = new Date();
   const year = today.getFullYear();
   const month = today.getMonth(); // 0-indexed
+  const firstDay = new Date(year, month, 1);
+  const startDayOfWeek = firstDay.getDay(); // Sunday = 0
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
   const dates = [];
+
+  // Fill previous month's trailing days if needed
+  for (let i = startDayOfWeek - 1; i >= 0; i--) {
+    const prevDate = new Date(year, month, 0 - i);
+    dates.push(prevDate);
+  }
+
+  // Fill current month days
   for (let i = 1; i <= daysInMonth; i++) {
     dates.push(new Date(year, month, i));
   }
+
+  // Fill next month's leading days if needed to complete full weeks
+  while (dates.length % 7 !== 0) {
+    const nextDate = new Date(
+      year,
+      month,
+      daysInMonth + (dates.length - daysInMonth - startDayOfWeek + 1)
+    );
+    dates.push(nextDate);
+  }
+
   return dates;
 }
 
@@ -19,6 +40,8 @@ function MainPage() {
   const [ingredients, setIngredients] = useState("");
   const [mealList, setMealList] = useState({});
   const [calendarMeals, setCalendarMeals] = useState({});
+  const today = new Date();
+  const currentMonth = today.getMonth();
 
   const handleAddMeal = () => {
     if (!mealName || !ingredients) return;
@@ -43,6 +66,24 @@ function MainPage() {
       });
       const data = await response.json();
       console.log("Submitted successfully:", data);
+      console.log("Meal Schedule from backend:", data);
+
+      // Parse backend response and fill into calendarMeals
+      const schedule = data || {};
+      const updatedMeals = {};
+      const currentMonthDates = getCurrentMonthDates();
+
+      currentMonthDates.forEach((date) => {
+        const day = date.toLocaleDateString("en-US", { weekday: "long" });
+        const weekNumber = Math.ceil(date.getDate() / 7);
+        const scheduleKey = `${day}${weekNumber}`;
+        const dateKey = date.toISOString().split("T")[0];
+        if (schedule[scheduleKey]) {
+          updatedMeals[dateKey] = [{ mealName: schedule[scheduleKey] }];
+        }
+      });
+
+      setCalendarMeals(updatedMeals);
     } catch (error) {
       console.error("Error submitting meals:", error);
     }
@@ -73,9 +114,15 @@ function MainPage() {
       <div className="content-section">
         <div className="calendar">
           {currentMonthDates.map((date) => {
+            const isCurrentMonth = date.getMonth() === currentMonth;
             const dateKey = date.toISOString().split("T")[0];
             return (
-              <div key={dateKey} className="calendar-cell">
+              <div
+                key={dateKey}
+                className={`calendar-cell ${
+                  !isCurrentMonth ? "grayed-out" : ""
+                }`}
+              >
                 <div className="calendar-date">{date.getDate()}</div>
                 <ul className="calendar-meals">
                   {(calendarMeals[dateKey] || []).map((meal, i) => (
