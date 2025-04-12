@@ -16,13 +16,8 @@ class UserCreate(BaseModel):
 
 class MealCreate(BaseModel):
     title: str
-    description: str
     ingredients: List[str]
-    instructions: List[str]
-    prep_time: int  # in minutes
-    cooking_time: int  # in minutes
-    servings: int
-    image_url: Optional[str] = None
+    
 
 # Authentication middleware
 async def get_current_user(authorization: str = Depends(lambda x: x)):
