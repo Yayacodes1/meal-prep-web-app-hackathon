@@ -1,0 +1,106 @@
+body {
+  background-color: #a7a7a7;
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  flex-grow: 1;
+  align-self: stretch;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+  color: green;
+  background-color: #a7a7a7;
+}
+
+.input-section {
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.input-section input {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #555;
+  background: #ffffff;
+  color: #333;
+}
+
+.input-section button {
+  padding: 0.5rem 1rem;
+  background-color: green;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.input-section button:hover {
+  background-color: #45a049;
+}
+.content-section {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.calendar-cell {
+  border: 1px solid #ddd;
+  width: 180px;
+  height: 100px;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background-color: rgb(29, 29, 29);
+  min-height: 80px;
+}
+
+.calendar-cell:hover {
+  background-color: #222;
+  border-color: #4caf50;
+  transform: translateY(-2px);
+}
+
+.calendar-date {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: #4caf50;
+}
+
+.calendar-meals {
+  font-size: 0.85rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.meal-list {
+  min-width: 250px;
+  border: 1px solid #444;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: rgb(29, 29, 29);
+}
+
+.grayed-out {
+  opacity: 0.3;
+}
+.weekly-buy-lists {
+  margin-top: 2rem;
+  width: 100%;
+}
+.weekly-buy-lists h4 {
+  margin-bottom: 0.5rem;
+}
+.weekly-buy-lists ul {
+  margin: 0;
+  padding-left: 1rem;
+}

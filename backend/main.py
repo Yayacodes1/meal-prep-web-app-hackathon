@@ -1,11 +1,21 @@
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Request
 from firebase_admin import auth
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
 from firebase import db
+from scheduler import mealScheduler, weeklyGroceryBuyList
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # Just for now :)
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Pydantic models for request validation
 class UserCreate(BaseModel):
@@ -31,6 +41,10 @@ async def get_current_user(authorization: str = Depends(lambda x: x)):
         return decoded_token
     except Exception:
         raise HTTPException(status_code=401, detail="Invalid authentication credentials")
+
+@app.get("/")
+def read_root():
+    return {"message": "Hello from FastAPI!"}
 
 # User endpoints
 @app.post("/api/users/signup")
@@ -135,4 +149,10 @@ async def delete_meal(meal_id: str, current_user = Depends(get_current_user)):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-
+# Meal scheduling endpoints
+@app.post("/meals")
+async def save_meals(request: Request):
+    meal_list = await request.json()
+    schedule = mealScheduler(meal_list)
+    buyList = weeklyGroceryBuyList(schedule, meal_list)
+    return [schedule, buyList]
