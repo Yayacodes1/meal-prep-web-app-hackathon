@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPage from "./pages/mainPage";
 import LandingPage from "./pages/landingPage";
+import Auth from "./components/Auth";
 
 function App() {
-  const [showMainPage, setShowMainPage] = useState(false);
-
-  const handleStart = () => {
-    setShowMainPage(true);
-  };
-
   return (
-    <div>
-      {showMainPage ? <MainPage /> : <LandingPage onStart={handleStart} />}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Auth />} />
+        <Route path="/dashboard" element={<MainPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
